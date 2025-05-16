@@ -1,0 +1,148 @@
+import React, {useEffect, useState} from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {
+  EditProfile,
+  Home,
+  Menu,
+  PrivacyPolicy,
+  SelectPriceAndPaymentMethod,
+  ShareFeedback,
+  TermsOfService,
+  VehicleInfo,
+} from '../../screens/app';
+import {routes} from '../../services';
+import {AppIcons, appStyles, colors} from '../../services/utilities';
+import {Image} from 'react-native';
+import Icon from 'react-native-vector-icons/dist/Octicons';
+import {totalSize} from 'react-native-dimension';
+import {Icons} from '../../components';
+import {navigationRef} from '../rootNavigation';
+
+const Tab = createBottomTabNavigator();
+const HomeStack = createNativeStackNavigator();
+const AppStack = createNativeStackNavigator();
+
+const HomeNavigation = () => {
+  return (
+    <HomeStack.Navigator screenOptions={{headerShown: false}}>
+      <HomeStack.Screen name={routes.home} component={Home} />
+      <HomeStack.Screen name={routes.vehicleInfo} component={VehicleInfo} />
+      <HomeStack.Screen
+        name={routes.selectPriceAndPaymentMethod}
+        component={SelectPriceAndPaymentMethod}
+      />
+    </HomeStack.Navigator>
+  );
+};
+
+const MyTabs = () => {
+  const [tab, setTab] = useState(routes.home);
+  useEffect(() => {
+    const unsubscribe = navigationRef?.current?.addListener('state', () => {
+      const currentRoute = navigationRef?.current?.getCurrentRoute();
+      if (currentRoute) {
+        console.log('currentRoute : ', currentRoute);
+        setTab(currentRoute?.name);
+      }
+    });
+    return unsubscribe;
+  });
+  const isEditProfileTab = tab === routes.editProfile;
+  return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        headerShown: false,
+        tabBarStyle: [
+          isEditProfileTab
+            ? {
+                position: 'absolute',
+                right: 0,
+                left: 0,
+                bottom: 0,
+                backgroundColor: colors.transparent,
+                borderTopWidth: 0,
+              }
+            : {
+                backgroundColor: colors.appBackgroundColor1,
+                borderTopWidth: 0,
+                ...appStyles.shadowDark,
+              },
+        ],
+        tabBarLabelStyle: [
+          isEditProfileTab
+            ? [appStyles.textSmall, appStyles.textPrimaryColor]
+            : appStyles.textSmall,
+        ],
+      })}>
+      <Tab.Screen
+        name={routes.homeTab}
+        component={HomeNavigation}
+        options={({route}) => ({
+          tabBarLabel: 'Home',
+          tabBarIcon: () => {
+            return (
+              <Icon
+                name="home"
+                size={totalSize(2.5)}
+                color={
+                  isEditProfileTab ? colors.appColor1 : colors.appTextColor1
+                }
+              />
+            );
+          },
+        })}
+      />
+      <Tab.Screen
+        name={routes.editProfile}
+        component={EditProfile}
+        options={({route}) => ({
+          tabBarLabel: 'Account',
+          tabBarIcon: ({focused}) => {
+            return (
+              <Icons.Custom
+                source={focused ? AppIcons.user2 : AppIcons.user1}
+                size={totalSize(2.5)}
+                style={{resizeMode: 'contain'}}
+                color={focused ? colors.appColor1 : colors.appTextColor1}
+              />
+              // <Image
+              //   source={AppIcons.user}
+              //   style={{height: totalSize(2.5), width: totalSize(2.5)}}
+              //   resizeMode="contain"
+              // />
+            );
+          },
+        })}
+        listeners={({navigation}) => ({
+          tabPress: e => {
+            e.preventDefault();
+            navigation.navigate(routes.menu);
+          },
+        })}
+      />
+    </Tab.Navigator>
+  );
+};
+
+const AppNavigation = () => {
+  return (
+    <AppStack.Navigator screenOptions={{headerShown: false}}>
+      <AppStack.Screen name={routes.bottomTab} component={MyTabs} />
+      {/* <AppStack.Screen name={routes.vehicleInfo} component={VehicleInfo} /> */}
+      <AppStack.Screen
+        name={routes.menu}
+        component={Menu}
+        options={{presentation: 'transparentModal'}}
+      />
+      <AppStack.Screen name={routes.shareFeedback} component={ShareFeedback} />
+      <AppStack.Screen name={routes.editProfile} component={EditProfile} />
+      <AppStack.Screen
+        name={routes.termsOfService}
+        component={TermsOfService}
+      />
+      <AppStack.Screen name={routes.privacyPolicy} component={PrivacyPolicy} />
+    </AppStack.Navigator>
+  );
+};
+export default AppNavigation;
