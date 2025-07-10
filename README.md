@@ -1,5 +1,73 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
+## 📱 App Screens
+
+### Login Screen
+
+<p >
+  <img src="./assets/1 login.png" alt="Login Screen" width="200"/>
+</p>
+
+### Create Account Screen
+
+<p >
+  <img src="./assets/2 create account.png" width="200"/>
+</p>
+
+### Set Up Profile Screen
+
+<p >
+  <img src="./assets/3 set up profile.png" width="200"/>
+</p>
+
+### Schedule Time Screen
+
+<p >
+  <img src="./assets/4.1 schedule time.png" width="200"/>
+  <img src="./assets/4.2 schedule time.png" width="200"/>
+  <img src="./assets/4.3 schedule time.png" width="200"/>
+  <img src="./assets/4.4 schedule time.png" width="200"/>
+</p>
+
+### Edit Profile Screen
+
+<p >
+  <img src="./assets/5 edit profile.png" width="200"/>
+</p>
+
+### Share Feedback Screen
+
+<p >
+  <img src="./assets/6 share feedback.png" width="200"/>
+</p>
+
+### Terms of Service Screen
+
+<p >
+  <img src="./assets/7 terms of service.png" width="200"/>
+</p>
+
+### Privacy Policy Screen
+
+<p >
+  <img src="./assets/8 privacy policy.png" width="200"/>
+</p>
+
+### Vehicle Info Screen
+
+<p >
+  <img src="./assets/9.1 vehicle info.png" width="200"/>
+  <img src="./assets/9.2 vehicle info.png" width="200"/>
+</p>
+
+### Payment Method Screen
+
+<p >
+  <img src="./assets/10.1 payment method.png" width="200"/>
+  <img src="./assets/10.2 payment method.png" width="200"/>
+  <img src="./assets/10.3 payment method.png" width="200"/>
+</p>
+
 # Getting Started
 
 > **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
